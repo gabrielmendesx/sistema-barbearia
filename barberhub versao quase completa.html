@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BarberHub</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#111;color:#f5f5f5;font-family:Arial,sans-serif}
+header{background:#080808;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #333}
+.logo{font-size:25px;font-weight:bold;color:#d9ad61}
+header small,.muted{color:#aaa}
+main{width:min(1000px,92%);margin:28px auto 50px}
+.hero{padding:32px;background:linear-gradient(120deg,#352a19,#191919);border:1px solid #554326;border-radius:13px;margin-bottom:20px}
+h1{margin:0 0 10px;font-size:clamp(27px,5vw,40px)}
+.hero p{color:#ccc;line-height:1.5;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.card{background:#1c1c1c;border:1px solid #383838;border-radius:11px;padding:21px;margin-bottom:17px}
+h2{font-size:21px;margin:0 0 15px}
+label{display:block;margin:12px 0 6px;font-size:14px;color:#ddd}
+input,select{width:100%;padding:11px;background:#101010;color:white;border:1px solid #484848;border-radius:7px}
+button{padding:11px 15px;border:0;border-radius:7px;background:#d9ad61;color:#17120a;font-weight:bold;cursor:pointer}
+button.dark{background:#414141;color:white}
+button.red{background:#713b3b;color:white}
+.actions{display:flex;gap:9px;margin-top:15px;flex-wrap:wrap}
+.message{font-size:14px;color:#e5bd73;min-height:18px;margin-top:10px}
+.hidden{display:none!important}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.service,.stat{background:#141414;border:1px solid #393939;border-radius:8px;padding:14px}
+.service strong{display:block;margin-bottom:7px}
+.price{color:#d9ad61;font-weight:bold;margin-bottom:0}
+.muted{font-size:13px;line-height:1.5}
+.topline,.item{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.item{padding:12px;border:1px solid #3b3b3b;border-radius:8px;margin:9px 0}
+.item small{display:block;color:#aaa;margin-top:5px;line-height:1.4}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:17px}
+.stat b{display:block;font-size:25px;color:#d9ad61}
+.stat span{font-size:13px;color:#aaa}
+.empty{color:#aaa;padding:8px 0}
+footer{text-align:center;color:#888;border-top:1px solid #333;padding:22px;font-size:13px}
+
+@media(max-width:680px){
+.grid{grid-template-columns:1fr}
+.services{grid-template-columns:1fr}
+.stats{grid-template-columns:1fr}
+header{padding:16px 4%}
+.hero{padding:24px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">BarberHub</div>
+<small id="headerText">Agende seu horário com facilidade</small>
+</header>
+
+<main>
+
+<section class="hero">
+<h1>Seu estilo, <span style="color:#d9ad61">no seu horário.</span></h1>
+<p>Consulte nossos serviços, escolha um horário disponível e agende seu atendimento de forma simples.</p>
+</section>
+
+<section id="access" class="grid">
+
+<div class="card">
+<h2>Entrar</h2>
+<form id="login">
+<label>Telefone</label>
+<input id="emailLogin" type="tel" required>
+
+<label>Senha</label>
+<input id="passLogin" type="password" required>
+
+<div class="actions">
+<button>Entrar</button>
+</div>
+</form>
+<div id="loginMsg" class="message"></div>
+</div>
+
+<div class="card">
+<h2>Criar conta</h2>
+<form id="register">
+<label>Nome</label>
+<input id="regName" required>
+
+<label>Telefone</label>
+<input id="regEmail" type="tel" required>
+
+<label>Senha (mínimo 4 caracteres)</label>
+<input id="regPass" type="password" minlength="4" required>
+
+<div class="actions">
+<button>Cadastrar</button>
+</div>
+</form>
+<div id="regMsg" class="message"></div>
+</div>
+
+</section>
+
+<section id="client" class="hidden">
+
+<div class="card topline">
+<div>
+<h2>Olá, <span id="clientName" style="color:#d9ad61"></span>!</h2>
+<div class="muted">Área do cliente</div>
+</div>
+<button class="dark" id="clientOut">Sair</button>
+</div>
+
+<div class="card">
+<h2>Nossos serviços</h2>
+
+<div class="services">
+
+<div class="service">
+<strong>Cabelo</strong>
+<span class="muted">Corte na tesoura ou máquina.</span>
+<p class="price">R$ 35,00</p>
+</div>
+
+<div class="service">
+<strong>Barba</strong>
+<span class="muted">Aparar e alinhar a barba.</span>
+<p class="price">R$ 25,00</p>
+</div>
+
+<div class="service">
+<strong>Cabelo + Barba</strong>
+<span class="muted">Combo completo.</span>
+<p class="price">R$ 55,00</p>
+</div>
+
+</div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h2>Agendar horário</h2>
+
+<form id="booking">
+
+<label>Serviço</label>
+<select id="service" required>
+<option value="">Escolha</option>
+<option>Cabelo</option>
+<option>Barba</option>
+<option>Cabelo + Barba</option>
+</select>
+
+<label>Data</label>
+<input type="date" id="date" required>
+
+<label>Horário disponível</label>
+<select id="time" required>
+<option value="">Selecione uma data</option>
+</select>
+
+<p class="muted">
+Segunda a sexta, das 09h às 17h; sábado, das 09h às 15h.
+Domingo fechado. Os horários são organizados conforme a duração do serviço.
+</p>
+
+<p class="muted">
+Para reservar o horário, será pago 50% do valor antecipadamente.
+Os outros 50% serão pagos no atendimento.
+</p>
+
+<div class="actions">
+<button>Confirmar agendamento</button>
+</div>
+
+</form>
+<div id="bookMsg" class="message"></div>
+</div>
+
+<div class="card">
+<h2>Meus agendamentos</h2>
+<div id="myList" class="empty">Você ainda não possui agendamentos.</div>
+</div>
+
+</div>
+</section>
+
+<section id="admin" class="hidden">
+
+<div class="card topline">
+<div>
+<h2>Painel do administrador</h2>
+<div class="muted">Gerenciamento da barbearia</div>
+</div>
+<button class="dark" id="adminOut">Sair</button>
+</div>
+
+<div class="stats">
+<div class="stat">
+<b id="clientsCount">0</b>
+<span>Clientes cadastrados</span>
+</div>
+
+<div class="stat">
+<b id="bookCount">0</b>
+<span>Agendamentos ativos</span>
+</div>
+
+<div class="stat">
+<b id="todayCount">0</b>
+<span>Agendamentos de hoje</span>
+</div>
+</div>
+
+<div class="card">
+<h2>Clientes cadastrados</h2>
+<div id="clientList" class="empty"></div>
+</div>
+
+<div class="card">
+<h2>Agenda da barbearia</h2>
+<p class="muted">Consulte quem reservou cada horário ou cancele um agendamento.</p>
+<div id="allList" class="empty"></div>
+</div>
+
+</section>
+
+</main>
+
+<footer>
+BarberHub © 2026 — Projeto acadêmico com HTML, CSS e JavaScript.
+</footer>
+
+<script>
+
+const UK='bh_users',BK='bh_bookings',ADMIN='000-000',ADMINPASS='AUG123';
+
+let current=null;
+
+const $=id=>document.getElementById(id),
+users=()=>JSON.parse(localStorage.getItem(UK)||'[]'),
+bookings=()=>JSON.parse(localStorage.getItem(BK)||'[]'),
+saveBookings=x=>localStorage.setItem(BK,JSON.stringify(x));
+
+function show(which){
+['access','client','admin'].forEach(id=>$(id).classList.toggle('hidden',id!==which));
+$('headerText').textContent=which==='admin'?'Painel administrativo':which==='client'?'Área do cliente':'Agende seu horário com facilidade';
+}
+
+function msg(id,text,error=false){
+$(id).textContent=text;
+$(id).style.color=error?'#ff8585':'#e5bd73';
+}
+
+function esc(s){
+return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// CADASTRO
+
+$('register').addEventListener('submit',e=>{
+e.preventDefault();
+
+let name=$('regName').value.trim(),
+email=$('regEmail').value.trim().toLowerCase(),
+password=$('regPass').value,
+u=users();
+
+if(email===ADMIN||u.some(x=>(x.phone||x.email)===email)){
+msg('regMsg','Este telefone já está cadastrado.',true);
+return;
+}
+
+u.push({name,phone:email,password});
+
+localStorage.setItem(UK,JSON.stringify(u));
+
+e.target.reset();
+
+msg('regMsg','Cadastro realizado! Agora você pode entrar.');
+});
+
+// LOGIN
+
+$('login').addEventListener('submit',e=>{
+e.preventDefault();
+
+let email=$('emailLogin').value.trim().toLowerCase(),
+password=$('passLogin').value;
+
+if(email===ADMIN&&password===ADMINPASS){
+current={role:'admin'};
+e.target.reset();
+show('admin');
+renderAdmin();
+return;
+}
+
+let u=users().find(x=>(x.phone||x.email)===email&&x.password===password);
+
+if(!u){
+msg('loginMsg','Telefone/usuário ou senha incorretos.',true);
+return;
+}
+
+current={role:'client',name:u.name,phone:u.phone||u.email};
+
+e.target.reset();
+
+$('clientName').textContent=u.name;
+
+show('client');
+renderMine();
+updateTimes();
+});
+
+// SAIR
+
+function logout(){
+current=null;
+show('access');
+}
+
+$('clientOut').onclick=logout;
+$('adminOut').onclick=logout;
+
+// DATA ATUAL
+
+function today(){
+let d=new Date();
+return new Date(d-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+}
+
+$('date').min=today();
+
+// DURAÇÃO DOS SERVIÇOS
+
+function serviceDuration(service){
+return service==='Cabelo + Barba'?60:30;
+}
+
+function toMinutes(time){
+let [h,m]=time.split(':').map(Number);
+return h*60+m;
+}
+
+function overlaps(startA,endA,startB,endB){
+return startA<endB&&startB<endA;
+}
+
+// HORÁRIOS DISPONÍVEIS
+
+function updateTimes(){
+
+let d=$('date').value,
+s=$('time'),
+service=$('service').value;
+
+s.innerHTML='<option value="">Escolha um horário</option>';
+
+if(!d)return;
+
+let day=new Date(d+'T12:00:00').getDay();
+
+if(day===0){
+s.innerHTML='<option value="">Fechado aos domingos</option>';
+return;
+}
+
+let closing=day===6?15*60:17*60;
+let duration=service?serviceDuration(service):30;
+
+let existing=bookings().filter(x=>x.date===d);
+
+for(let start=9*60;start+duration<=closing;start+=30){
+
+let end=start+duration;
+
+let t=String(Math.floor(start/60)).padStart(2,'0')+':'+String(start%60).padStart(2,'0');
+
+let conflict=existing.some(x=>{
+let oldStart=toMinutes(x.time),
+oldDuration=serviceDuration(x.service);
+
+return overlaps(start,end,oldStart,oldStart+oldDuration);
+});
+
+if(!conflict&&(d!==today()||t>new Date().toTimeString().slice(0,5))){
+
+let o=document.createElement('option');
+o.value=t;
+o.textContent=t;
+s.appendChild(o);
+
+}
+
+}
+
+if(s.options.length===1){
+s.innerHTML='<option value="">Sem horários disponíveis</option>';
+}
+
+}
+
+$('date').addEventListener('change',updateTimes);
+$('service').addEventListener('change',updateTimes);
+
+// AGENDAMENTO
+
+$('booking').addEventListener('submit',e=>{
+
+e.preventDefault();
+
+let date=$('date').value,
+time=$('time').value,
+service=$('service').value;
+
+if(!date||!time||!service){
+msg('bookMsg','Preencha todos os campos.',true);
+return;
+}
+
+if(date<today()){
+msg('bookMsg','Escolha uma data atual ou futura.',true);
+return;
+}
+
+let all=bookings(),
+start=toMinutes(time),
+end=start+serviceDuration(service);
+
+if(all.some(x=>{
+
+if(x.date!==date)return false;
+
+let oldStart=toMinutes(x.time),
+oldEnd=oldStart+serviceDuration(x.service);
+
+return overlaps(start,end,oldStart,oldEnd);
+
+})){
+
+msg('bookMsg','Esse horário conflita com outro agendamento. Escolha outro.',true);
+updateTimes();
+return;
+
+}
+
+all.push({
+id:Date.now(),
+name:current.name,
+phone:current.phone,
+service,
+date,
+time
+});
+
+saveBookings(all);
+
+e.target.reset();
+
+updateTimes();
+renderMine();
+
+msg('bookMsg','Agendamento confirmado!');
+
+});
+
+// AGENDAMENTOS DO CLIENTE
+
+function renderMine(){
+
+let box=$('myList'),
+mine=bookings().filter(x=>(x.phone||x.email)===current.phone).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+
+box.innerHTML='';
+box.className=mine.length?'':'empty';
+
+if(!mine.length){
+box.textContent='Você ainda não possui agendamentos.';
+return;
+}
+
+mine.forEach(x=>{
+
+let row=document.createElement('div');
+row.className='item';
+
+let info=document.createElement('div');
+
+info.innerHTML='<strong>'+esc(x.service)+'</strong><small>'+x.date.split('-').reverse().join('/')+' às '+esc(x.time)+'</small>';
+
+let b=document.createElement('button');
+
+b.className='dark';
+b.textContent='Cancelar';
+
+b.onclick=()=>{
+saveBookings(bookings().filter(y=>y.id!==x.id));
+renderMine();
+updateTimes();
+};
+
+row.append(info,b);
+box.append(row);
+
+});
+
+}
+
+// PAINEL DO ADMINISTRADOR
+
+function renderAdmin(){
+
+let u=users(),
+all=bookings().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+
+$('clientsCount').textContent=u.length;
+$('bookCount').textContent=all.length;
+$('todayCount').textContent=all.filter(x=>x.date===today()).length;
+
+let cl=$('clientList');
+
+cl.innerHTML='';
+cl.className=u.length?'':'empty';
+
+if(!u.length){
+cl.textContent='Nenhum cliente cadastrado.';
+}
+
+u.forEach(x=>{
+
+let r=document.createElement('div');
+r.className='item';
+
+r.innerHTML='<div><strong>'+esc(x.name)+'</strong><small>'+esc(x.phone||x.email)+'</small></div>';
+
+cl.append(r);
+
+});
+
+let list=$('allList');
+
+list.innerHTML='';
+list.className=all.length?'':'empty';
+
+if(!all.length){
+list.textContent='Nenhum agendamento ainda.';
+}
+
+all.forEach(x=>{
+
+let r=document.createElement('div');
+r.className='item';
+
+let info=document.createElement('div');
+
+info.innerHTML='<strong>'+esc(x.name)+' — '+esc(x.service)+'</strong><small>'+x.date.split('-').reverse().join('/')+' às '+esc(x.time)+' | '+esc(x.phone||x.email)+'</small>';
+
+let b=document.createElement('button');
+
+b.className='red';
+b.textContent='Cancelar';
+
+b.onclick=()=>{
+saveBookings(bookings().filter(y=>y.id!==x.id));
+renderAdmin();
+};
+
+r.append(info,b);
+list.append(r);
+
+});
+
+}
+
+show('access');
+
+</script>
+
+</body>
+</html>
