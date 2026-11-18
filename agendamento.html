@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento - BarberHub</title>
+</head>
+<body>
+
+    <header>
+        <h1>BarberHub</h1>
+
+        <a href="index.html" class="logo"></a>
+
+        <nav>
+            <a href="index.html">Início</a> |
+            <a href="servicos.html">Serviços</a> |
+            <a href="cadastro.html">Cadastro</a> |
+            <a href="sobre.html">Sobre Nós</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Agende seu horário</h2>
+        <p>Preencha os campos abaixo para agendar seu atendimento.</p>
+
+        <form action="#" method="post">
+
+            <label for="nome">Nome completo:</label><br>
+            <input type="text" id="nome" name="nome" required>
+            <br><br>
+
+            <label for="telefone">Telefone:</label><br>
+            <input type="tel" id="telefone" name="telefone" required>
+            <br><br>
+
+            <label for="servico">Escolha o serviço:</label><br>
+            <select id="servico" name="servico" required>
+                <option value="">Selecione um serviço</option>
+                <option value="corte">Corte de cabelo</option>
+                <option value="barba">Barba</option>
+                <option value="corte-barba">Corte + Barba</option>
+                <option value="sobrancelha">Sobrancelha</option>
+                <option value="pezinho">Pezinho</option>
+            </select>
+            <br><br>
+
+            <label for="barbeiro">Escolha o barbeiro:</label><br>
+            <select id="barbeiro" name="barbeiro" required>
+                <option value="">Selecione um barbeiro</option>
+                <option value="joao">João</option>
+                <option value="pedro">Pedro</option>
+                <option value="carlos">Carlos</option>
+            </select>
+            <br><br>
+
+            <label for="data">Data do agendamento:</label><br>
+            <input type="date" id="data" name="data" required>
+            <br><br>
+
+            <label for="horario">Horário:</label><br>
+            <select id="horario" name="horario" required>
+                <option value="">Selecione um horário</option>
+                <option value="08:00">08:00</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+            </select>
+            <br><br>
+
+            <label for="observacao">Observações:</label><br>
+            <textarea id="observacao" name="observacao" rows="4" cols="30"></textarea>
+            <br><br>
+
+            <button type="submit">Agendar horário</button>
+            <button type="reset">Limpar</button>
+
+        </form>
+    </main>
+
+    <footer>
+        <p>BarberHub © 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
