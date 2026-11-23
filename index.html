@@ -1,197 +1,62 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BarberHub</title>
-<link rel="stylesheet" href="style.css">
-</head>
 
-<body>
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<header>
-<div class="logo">BarberHub</div>
-<small id="headerText">Agende seu horário com facilidade</small>
-</header>
+        <title>BarberHub</title>
 
-<main>
 
-<section class="hero">
-<h1>Seu estilo, <span style="color:#d9ad61">no seu horário.</span></h1>
-<p>Consulte nossos serviços, escolha um horário disponível e agende seu atendimento de forma simples.</p>
-</section>
+    </head>
 
-<section id="access" class="grid">
+    <body>
 
-<div class="card">
-<h2>Entrar</h2>
-<form id="login">
-<label>Telefone</label>
-<input id="emailLogin" type="tel" required>
+    
 
-<label>Senha</label>
-<input id="passLogin" type="password" required>
+            <!-- MENU -->
+            <header class="site-header">
 
-<div class="actions">
-<button>Entrar</button>
-</div>
-</form>
-<div id="loginMsg" class="message"></div>
-</div>
+                <a href="index.html" class="logo"></a>
 
-<div class="card">
-<h2>Criar conta</h2>
-<form id="register">
-<label>Nome</label>
-<input id="regName" required>
+                <nav>
+                    <ul class="menu">
+                        <a href="servicos.html">Serviços</a> |
+                        <a href="agendamento.html">Agendamento</a> |
+                        <a href="cadastro.html">Cadastro</a> |
+                        <a href="sobre.html">Sobre</a>
+                    </ul>
+                </nav>
 
-<label>Telefone</label>
-<input id="regEmail" type="tel" required>
+            
 
-<label>Senha (mínimo 4 caracteres)</label>
-<input id="regPass" type="password" minlength="4" required>
+            </header>
 
-<div class="actions">
-<button>Cadastrar</button>
-</div>
-</form>
-<div id="regMsg" class="message"></div>
-</div>
+            <!-- CONTEÚDO PRINCIPAL -->
+            <section class="hero-content">
 
-</section>
+                <div class="hero-copy">
 
-<section id="client" class="hidden">
+                    <p class="subtitulo">BarberHub</p>
 
-<div class="card topline">
-<div>
-<h2>Olá, <span id="clientName" style="color:#d9ad61"></span>!</h2>
-<div class="muted">Área do cliente</div>
-</div>
-<button class="dark" id="clientOut">Sair</button>
-</div>
+                    <h1>
+                        MAIS DO QUE<br>
+                        APENAS UM<br>
+                        CORTE
+                    </h1>
 
-<div class="card">
-<h2>Nossos serviços</h2>
+                    <a href="agendamento.html" class="botao">
+                        RESERVE AGORA
+                    </a>
 
-<div class="services">
+            </section>
 
-<div class="service">
-<strong>Cabelo</strong>
-<span class="muted">Corte na tesoura ou máquina.</span>
-<p class="price">R$ 35,00</p>
-</div>
+        </main>
 
-<div class="service">
-<strong>Barba</strong>
-<span class="muted">Aparar e alinhar a barba.</span>
-<p class="price">R$ 25,00</p>
-</div>
+        <footer>
+            <p>BarberHub © 2026 - Todos os direitos reservados.</p>
+            <p>Seu estilo, nossa missão!</p>
+        </footer>
 
-<div class="service">
-<strong>Cabelo + Barba</strong>
-<span class="muted">Combo completo.</span>
-<p class="price">R$ 55,00</p>
-</div>
-
-</div>
-</div>
-
-<div class="grid">
-
-<div class="card">
-<h2>Agendar horário</h2>
-
-<form id="booking">
-
-<label>Serviço</label>
-<select id="service" required>
-<option value="">Escolha</option>
-<option>Cabelo</option>
-<option>Barba</option>
-<option>Cabelo + Barba</option>
-</select>
-
-<label>Data</label>
-<input type="date" id="date" required>
-
-<label>Horário disponível</label>
-<select id="time" required>
-<option value="">Selecione uma data</option>
-</select>
-
-<p class="muted">
-Segunda a sexta, das 09h às 17h; sábado, das 09h às 15h.
-Domingo fechado. Os horários são organizados conforme a duração do serviço.
-</p>
-
-<p class="muted">
-Para reservar o horário, será pago 50% do valor antecipadamente.
-Os outros 50% serão pagos no atendimento.
-</p>
-
-<div class="actions">
-<button>Confirmar agendamento</button>
-</div>
-
-</form>
-<div id="bookMsg" class="message"></div>
-</div>
-
-<div class="card">
-<h2>Meus agendamentos</h2>
-<div id="myList" class="empty">Você ainda não possui agendamentos.</div>
-</div>
-
-</div>
-</section>
-
-<section id="admin" class="hidden">
-
-<div class="card topline">
-<div>
-<h2>Painel do administrador</h2>
-<div class="muted">Gerenciamento da barbearia</div>
-</div>
-<button class="dark" id="adminOut">Sair</button>
-</div>
-
-<div class="stats">
-<div class="stat">
-<b id="clientsCount">0</b>
-<span>Clientes cadastrados</span>
-</div>
-
-<div class="stat">
-<b id="bookCount">0</b>
-<span>Agendamentos ativos</span>
-</div>
-
-<div class="stat">
-<b id="todayCount">0</b>
-<span>Agendamentos de hoje</span>
-</div>
-</div>
-
-<div class="card">
-<h2>Clientes cadastrados</h2>
-<div id="clientList" class="empty"></div>
-</div>
-
-<div class="card">
-<h2>Agenda da barbearia</h2>
-<p class="muted">Consulte quem reservou cada horário ou cancele um agendamento.</p>
-<div id="allList" class="empty"></div>
-</div>
-
-</section>
-
-</main>
-
-<footer>
-BarberHub © 2026 — Projeto acadêmico com HTML, CSS e JavaScript.
-</footer>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+    </body>
+    </html>
